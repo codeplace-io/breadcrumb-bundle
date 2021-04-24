@@ -1,5 +1,5 @@
 {
-    "name": "thormeier/breadcrumb-bundle",
+    "name": "codeplace-io/breadcrumb-bundle",
     "type": "symfony-bundle",
     "description": "Symfony bundle for easy setup of breadcrumbs",
     "license": "MIT",
@@ -7,6 +7,11 @@
         {
             "name": "Pascal Thormeier",
             "email": "pascal.thormeier@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Maciej Żukiewicz",
+            "email": "maciej.zukiewicz@codeplace.io",
             "role": "Developer"
         }
     ],
