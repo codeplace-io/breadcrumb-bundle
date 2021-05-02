@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Thormeier\BreadcrumbBundle\Contracts\BreadcrumbProviderAwareInterface;
 
 /**
  * Symfony DI extension
@@ -29,5 +30,13 @@ class ThormeierBreadcrumbExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $this->tagServices($container, BreadcrumbProviderAwareInterface::class, Tag::BREADCRUMB_PROVIDER_AWARE);
+    }
+
+    private function tagServices(ContainerBuilder $container, string $interface, $tag): void
+    {
+        $serviceDefinition = $container->registerForAutoconfiguration($interface);
+        $serviceDefinition->addTag($tag);
     }
 }
