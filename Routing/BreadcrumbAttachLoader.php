@@ -107,9 +107,10 @@ class BreadcrumbAttachLoader extends Loader
 
         // If there's a parent, add it and its parents as well
         if (isset($breadcrumbOptions['parent_route'])) {
+            $parentRoute = $this->replaceLocaleParameterFromRouteName($breadcrumbOptions['parent_route']);
             $rawBreadcrumbsCollection = $this->getBreadcrumbs(
-                $routeCollection->get($breadcrumbOptions['parent_route']),
-                $breadcrumbOptions['parent_route'],
+                $routeCollection->get($parentRoute),
+                $parentRoute,
                 $routeCollection,
                 $rawBreadcrumbsCollection
             );
