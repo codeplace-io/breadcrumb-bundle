@@ -16,15 +16,21 @@ class BreadcrumbAttachLoader extends Loader
      * @var LoaderInterface
      */
     private $routerLoader;
+    private ?Request $request;
+    private string $defaultLocale;
 
     /**
      * Attaches breadcrumb tree to every routes default config
      *
      * @param LoaderInterface $routerLoader
+     * @param RequestStack $requestStack
+     * @param string $defaultLocale
      */
-    public function __construct(LoaderInterface $routerLoader)
+    public function __construct(LoaderInterface $routerLoader, RequestStack $requestStack, string $defaultLocale)
     {
         $this->routerLoader = $routerLoader;
+        $this->request = $requestStack->getMasterRequest();
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -110,4 +116,17 @@ class BreadcrumbAttachLoader extends Loader
         return $rawBreadcrumbsCollection;
     }
 
+    private function getCurrentLocale(): string
+    {
+        if (null === $this->request) {
+            return $this->defaultLocale;
+        }
+
+        return $this->request->getLocale() ?? $this->defaultLocale;
+    }
+
+    private function replaceLocaleParameterFromRouteName(string $routeName): string
+    {
+        return str_replace('{_locale}', $this->getCurrentLocale(), $routeName);
+    }
 }

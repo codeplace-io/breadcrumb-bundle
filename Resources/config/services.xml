@@ -18,6 +18,8 @@
 
         <service id="thormeier_breadcrumb.routing.attach_breadcrumb_loader" class="Thormeier\BreadcrumbBundle\Routing\BreadcrumbAttachLoader">
             <argument type="service" id="thormeier_breadcrumb.routing.attach_breadcrumb_loader.inner"/>
+            <argument type="service" id="request_stack"/>
+            <argument>%kernel.default_locale%</argument>
         </service>
 
         <service id="Thormeier\BreadcrumbBundle\Provider\BreadcrumbProviderInterface" alias="Thormeier\BreadcrumbBundle\Provider\BreadcrumbProvider" />
