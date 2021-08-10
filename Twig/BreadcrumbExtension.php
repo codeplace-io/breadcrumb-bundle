@@ -58,6 +58,7 @@ class BreadcrumbExtension extends AbstractExtension
 
     /**
      * @param Environment $twigEnvironment
+     * @param string|null $twigEnvironment
      *
      * @return string
      *
@@ -65,9 +66,13 @@ class BreadcrumbExtension extends AbstractExtension
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function renderBreadcrumbs(Environment $twigEnvironment)
+    public function renderBreadcrumbs(Environment $twigEnvironment, $template = null)
     {
-        return $twigEnvironment->render($this->template, array(
+        if (null === $template) {
+            $template = $this->template;
+        }
+
+        return $twigEnvironment->render($template, array(
             'breadcrumbs' => $this->breadcrumbProvider->getBreadcrumbs()->getAll()
         ));
     }
